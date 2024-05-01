@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+
+    <h2>Comentarios</h2>
+    <ul>
+      {% for comment in article.comment_set.all %}
+      <li>{{ comment.author.username }}: {{ comment.text }}</li>
+      {% empty %}
+      <li>No hay comentarios aún.</li>
+      {% endfor %}
+    </ul>
+{% if user.is_authenticated %}
+    <h2>Agregar Comentario</h2>
+    <form method="post" action="{% url 'add_comment_to_article' article_id=article.id %}">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Agregar Comentario</button>
+      </form>
+ {% endif %}
+{% endblock %}

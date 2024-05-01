@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <h1>Artículos del Usuario</h1>
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Contenido</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for articulo in articulos %}
+            <tr style="border-bottom: 1px solid #ccc;">
+                <td>{{ articulo.title }}</td>
+                <td>{{ articulo.content }}</td>
+                <td>
+                    <a href="{% url 'home'  %}">Editar</a>
+                    <form action="{% url 'home'%}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este artículo?')">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

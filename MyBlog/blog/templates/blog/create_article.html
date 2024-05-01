@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<h1>Crear Articulo</h1>
+
+{{error}}
+<form method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="idcreate" value="{{ request.user.id }}">  <!-- Campo oculto para el ID del autor -->
+  {{form.as_p}}
+
+  <button>Guardar</button>
+</form>
+{% endblock %}
